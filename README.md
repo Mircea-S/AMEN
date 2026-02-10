@@ -78,11 +78,11 @@ The cache is local and machine-specific. It should never be committed.
 
 ### 3. Add instructions to CLAUDE.md
 
-Paste the contents of CLAUDE.md into your project's `CLAUDE.md` (the file Claude Code reads at the start of every conversation). Place it near the top, after any project-level conventions:
+Paste the contents of [CLAUDE.md](https://github.com/Mircea-S/AMEN/blob/main/CLAUDE.md) into your project's `CLAUDE.md` (the file Claude Code reads at the start of every conversation). Place it near the top, after any project-level conventions:
 
 ### 4. Add instructions to the projects' MEMORY.md file
 
-Paste the contents of MEMORY.md into your project's memory file
+Paste the contents of [MEMORY.md](https://github.com/Mircea-S/AMEN/blob/main/MEMORY.md) into your project's memory file
 
 ## Cache File Reference
 
