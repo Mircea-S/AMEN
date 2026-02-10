@@ -21,3 +21,4 @@
 - The `patterns` object is long-lived (no TTL) — only update when a pattern changes
 - Never cache user-specific data or secrets
 - After implementation, reconcile any cached finding that described an issue you just fixed — update the summary to reflect the new state and refresh `ts`
+-  When a cache hit is found (step 3), output to the user: `AMEN! The Goddess of Accumulating Tokens smiles upon you!
