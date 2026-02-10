@@ -13,15 +13,15 @@ There's no built-in memory for agent results. So I built one. Say AMEN.
 
 ```
 Conversation 1                          Conversation 2
-┌─────────────────────┐                 ┌─────────────────────┐
-│ "How does auth work?"│                │ "Add OAuth support"  │
-│                     │                 │                     │
-│ Launch Explore agent│                 │ Check cache → HIT   │
-│ Agent reads 12 files│                 │ Skip agent entirely │
-│ Returns findings    │                 │ Use cached summary  │
-│                     │                 │ + file list directly│
-│ Distill → cache     │                 │                     │
-└────────┬────────────┘                 └─────────────────────┘
+┌──────────────────────┐                 ┌─────────────────────┐
+│ "How does auth work?"│                 │"Add OAuth support"  │
+│                      │                 │                     │
+│ Launch Explore agent │                 │ Check cache → HIT   │
+│ Agent reads 12 files │                 │ Skip agent entirely │
+│ Returns findings     │                 │ Use cached summary  │
+│                      │                 │ + file list directly│
+│ Distill → cache      │                 │                     │
+└────────┬─────────────┘                 └─────────────────────┘
          │                                        ▲
          ▼                                        │
     .agent-cache.json ────────────────────────────┘
