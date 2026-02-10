@@ -86,33 +86,33 @@ Paste this section into your project's `CLAUDE.md` (the file Claude Code reads a
 `.agent-cache.json` stores distilled results from Explore agents across conversations.
 
 **Protocol — follow on every task that would launch an Explore agent:**
-1. **Read before launching.** Check `.agent-cache.json` for a matching topic key.
-   Read only the key you need — never preload the entire file into context.
-2. **Check freshness.** Compare the entry's `ts` to today. If older than
-   `_meta.maxAgeDays` (default 7), treat as missing.
-3. **Skip the agent if cache hits.** Use the cached `summary` and `files`
-   list directly.
-4. **Save after every agent.** After an Explore agent completes, distill its
-   findings into a compact entry and write it back. Structure:
+1. **Read before launching.** Check `.agent-cache.json` for a matching topic key. Read only the key you need — never preload the entire file into context.
+2. **Check freshness.** Compare the entry's `ts` to today. If older than `_meta.maxAgeDays` (default 7), treat as missing.
+3. **Skip the agent if cache hits.** Use the cached `summary` and `files` list directly.
+4. **CRITICAL — Write back IMMEDIATELY.** When an Explore agent returns results, your VERY NEXT action MUST be writing to `.agent-cache.json`. Do NOT use the results, do NOT continue the task, do NOT write to the plan file — write the cache entry FIRST. This is a blocking prerequisite before any other action. Distill findings into:
    - `ts` — ISO 8601 timestamp
-   - `summary` — 2-4 sentences: what exists, where, key function names.
-     No code blocks.
+   - `summary` — 2-4 sentences: what exists, where, key function names. No code blocks.
    - `files` — array of key file paths discovered
-5. **Save reusable patterns.** If the agent uncovered a recurring implementation
-   pattern (e.g., how to add a new DB event hook, how settings sections are
-   structured), add it to the top-level `patterns` object as a one-liner
-   keyed by slug.
-6. **Prune on write.** When writing to the cache, remove any topic entries
-   older than 30 days.
+5. **Save reusable patterns.** If the agent uncovered a recurring implementation pattern (e.g., how to add a new DB event hook, how settings sections are structured), add it to the top-level `patterns` object as a one-liner keyed by slug.
+6. **Prune on write.** When writing to the cache, remove any topic entries older than 30 days.
 
 **Rules:**
-- Topic keys are kebab-case slugs (e.g., `auth-system`, `api-routes`)
+- Topic keys are kebab-case slugs (e.g., `mission-system`, `push-notifications`, `settings-views`)
 - Summaries must be plain text, no markdown/code fences — keep under 300 chars
 - The `patterns` object is long-lived (no TTL) — only update when a pattern changes
 - Never cache user-specific data or secrets
 ```
 
 That's it. No tooling, no dependencies, no build step.
+
+### 4. Add instructions to the projects' MEMORY.md file
+
+```markdown
+## AMEN Cache — Mandatory Write-Back
+- After ANY Explore agent returns results, your **very next action** MUST be writing to `.agent-cache.json`. Do not use the results, continue the task, or write to a plan file first. Cache write is a blocking prerequisite.
+- This applies in all modes: plan mode, normal mode, background agents.
+- Format: `{ ts, summary (plain text, <300 chars), files: [...] }` under `topics.<kebab-key>`.
+```
 
 ## Cache File Reference
 
